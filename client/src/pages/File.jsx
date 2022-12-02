@@ -53,7 +53,6 @@ const File = () => {
     document.body.appendChild(anchor);
     anchor.click();
     document.body.removeChild(anchor);
-    setUrl("");
   };
 
   const { user, admin } = useContext(AccountContext);
