@@ -10,7 +10,9 @@ const Table = ({ filedata, getfiles }) => {
   const { user, admin } = useContext(AccountContext);
   const HandleDelete = async (e, name) => {
     e.preventDefault();
-    const res = await axios.post("http://localhost:8000/filedelete", { name });
+    const res = await axios.post("https://react-sop.onrender.com/filedelete", {
+      name,
+    });
     toast.success("File Deleted Successfully");
     getfiles();
   };

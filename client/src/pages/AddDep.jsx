@@ -15,7 +15,7 @@ const AddDep = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    let res = axios.post("http://localhost:8000/adddep", data);
+    let res = axios.post("https://react-sop.onrender.com", data);
     toast.success("Successfully Added!");
     reset();
   }; // your form submit function which will invoke after successful validation

@@ -22,7 +22,10 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-      let res = await axios.post("http://localhost:8000/getUser", data);
+      let res = await axios.post(
+        "https://react-sop.onrender.com/getUser",
+        data
+      );
       toast.success(`Welcome ${data.name}`);
       setUser(res.data.users);
     } catch {

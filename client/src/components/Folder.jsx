@@ -9,7 +9,9 @@ const Folder = ({ name, id, deleteId, getFiles }) => {
   const { user, admin } = useContext(AccountContext);
   const HandleDelete = async (e) => {
     e.preventDefault();
-    const res = await axios.post("http://localhost:8000/filedelete", { name });
+    const res = await axios.post("https://react-sop.onrender.com/filedelete", {
+      name,
+    });
     toast.success("File Deleted Successfully");
     getFiles();
   };
@@ -47,7 +49,7 @@ const Folder = ({ name, id, deleteId, getFiles }) => {
             <AiOutlineClose />
           </button>
         )}
-        <Link to={`/file/${name}`} className="absolute  -bottom-10">
+        <Link to={`/file/${name}`} className="absolute -bottom-10">
           <p className="px-8 py-1 transition-all duration-200 ease-in-out bg-green-500 rounded-full shadow-lg hover:scale-110 ">
             Open
           </p>

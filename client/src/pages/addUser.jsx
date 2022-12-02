@@ -17,7 +17,7 @@ const AddUser = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    let res = await axios.post("http://localhost:8000/add", data);
+    let res = await axios.post("https://react-sop.onrender.com/add", data);
     console.log(res);
     if (res.status === 203) {
       toast.error("Username Already Registered");
@@ -29,7 +29,7 @@ const AddUser = () => {
   }; // your form submit function which will invoke after successful validation
 
   const getAllDep = async () => {
-    let res = await axios.get("http://localhost:8000/getdepartments");
+    let res = await axios.get("https://react-sop.onrender.com/getdepartments");
 
     setDepdata(res.data);
   };

@@ -25,7 +25,7 @@ const FolderPage = () => {
   console.log(filedata);
   const [firstdata, setfirstdata] = useState(null);
   const getFiles = async () => {
-    let res = await axios.get("http://localhost:8000/allfiles");
+    let res = await axios.get("https://react-sop.onrender.com/allfiles");
 
     let filtered = res?.data?.filter((item) => {
       if (item.filename.includes(id)) {
@@ -115,7 +115,10 @@ const FolderPage = () => {
       data.append("department", id);
       data.append("file", file);
 
-      let res = await axios.post("http://localhost:8000/file/upload", data);
+      let res = await axios.post(
+        "https://react-sop.onrender.com/file/upload",
+        data
+      );
       toast.success("Data Uploaded Successfully");
       reset();
       setfile(null);

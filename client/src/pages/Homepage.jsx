@@ -28,13 +28,13 @@ export default function Home() {
   console.log(list);
 
   const getAllusers = async () => {
-    let res = await axios.get("http://localhost:8000/getall");
+    let res = await axios.get("https://react-sop.onrender.com/getall");
     setlist(res.data);
     setOpen1(true);
   };
 
   const getAllDep = async () => {
-    let res = await axios.get("http://localhost:8000/getdepartments");
+    let res = await axios.get("https://react-sop.onrender.com/getdepartments");
     setDepdata(res.data);
   };
 
@@ -108,7 +108,10 @@ export default function Home() {
   });
 
   const DeleteUser = async (data) => {
-    let res = await axios.post("http://localhost:8000/delteuser", data);
+    let res = await axios.post(
+      "https://react-sop.onrender.com/delteuser",
+      data
+    );
     console.log(res);
 
     getAllusers();
@@ -118,7 +121,9 @@ export default function Home() {
 
   const HandleDeleteDep = async () => {
     let name = selectref?.current.value;
-    let res = await axios.post("http://localhost:8000/deletedep", { name });
+    let res = await axios.post("https://react-sop.onrender.com/deletedep", {
+      name,
+    });
     getAllDep();
     toast.success("Department Deleted Successfully");
   };

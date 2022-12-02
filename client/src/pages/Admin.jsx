@@ -19,7 +19,10 @@ const Admin = () => {
 
   const onSubmit = async (data) => {
     try {
-      let res = await axios.post("http://localhost:8000/getadmin", data);
+      let res = await axios.post(
+        "https://react-sop.onrender.com/getadmin",
+        data
+      );
       setAdmin(res.data);
       toast.success(`Welcome ${data.name}`);
     } catch {

@@ -23,7 +23,7 @@ const OuterFolderPage = () => {
   console.log(filedata);
 
   const getFiles = async () => {
-    let res = await axios.get("http://localhost:8000/getallfolders");
+    let res = await axios.get("https://react-sop.onrender.com/getallfolders");
     let filtered = res?.data?.filter((item) => {
       if (item?.department == id) {
         return item;
@@ -86,7 +86,10 @@ const OuterFolderPage = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
-    let res = await axios.post("http://localhost:8000/addfolder", data);
+    let res = await axios.post(
+      "https://react-sop.onrender.com/addfolder",
+      data
+    );
     toast.success("Data Uploaded Successfully");
     reset();
 
