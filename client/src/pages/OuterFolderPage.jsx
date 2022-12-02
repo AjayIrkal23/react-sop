@@ -16,8 +16,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import UserDepartments from "../components/UserFolder";
-
+import ReactToPrint from "react-to-print";
 const OuterFolderPage = () => {
+  let componentRef = useRef();
   const [filedata, setfiledata] = useState(null);
   console.log(filedata);
 
@@ -140,21 +141,37 @@ const OuterFolderPage = () => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <div className=" h-[600px] md:h-auto bg-white absolute top-[50%] left-[50%] w-[80%] md:w-[600px] -translate-y-[50%] -translate-x-[50%] overflow-scroll">
+          <div
+            ref={(el) => (componentRef = el)}
+            className=" h-[600px] md:h-auto bg-white absolute w-[90%] top-[50%] left-[50%]  md:w-[600px] -translate-y-[50%] -translate-x-[50%] overflow-scroll"
+          >
             <img src={jsw} width="200px" className="py-2 mx-auto" alt="" />
             <p className="px-2 my-2 text-xl font-semibold text-center capitalize">
               {id} Department QR CODE
             </p>
             <div className="flex justify-center p-8">
               {" "}
-              <div ref={qrRef}>{qrcode}</div>
+              <div className="" ref={qrRef}>
+                {qrcode}
+              </div>
             </div>
-            <button
-              onClick={downloadQRCode}
-              className="w-full px-4 py-2 font-semibold text-white bg-blue-500 "
-            >
-              Download
-            </button>
+            <div className="flex gap-3 mb-0.5 px-0.5">
+              {" "}
+              <button
+                onClick={downloadQRCode}
+                className="px-4 py-2 font-semibold text-white bg-green-500 rounded-md basis-1/2 "
+              >
+                Download
+              </button>
+              <ReactToPrint
+                trigger={() => (
+                  <button className="px-4 py-2 font-semibold text-center text-white bg-blue-500 rounded-md basis-1/2 ">
+                    Print this out!
+                  </button>
+                )}
+                content={() => componentRef}
+              />
+            </div>
           </div>
         </Modal>
 
@@ -226,10 +243,10 @@ const OuterFolderPage = () => {
             ))}
           </div>
         ) : (
-          <div className="flex justify-center items-center flex-col">
+          <div className="flex flex-col items-center justify-center">
             <img src={nondata} height="200px" width="300px" alt="" />
 
-            <p className="text-gray-600 font-semibold ">No Data Present Here</p>
+            <p className="font-semibold text-gray-600 ">No Data Present Here</p>
           </div>
         )}
       </div>

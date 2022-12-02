@@ -17,8 +17,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import Table from "../components/Table";
+import ReactToPrint from "react-to-print";
 
 const FolderPage = () => {
+  let componentRef = useRef();
   const [filedata, setfiledata] = useState(null);
   console.log(filedata);
   const [firstdata, setfirstdata] = useState(null);
@@ -176,7 +178,10 @@ const FolderPage = () => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <div className=" h-[600px] md:h-auto bg-white absolute top-[50%] left-[50%] w-[80%] md:w-[600px] -translate-y-[50%] -translate-x-[50%] overflow-scroll">
+          <div
+            ref={(el) => (componentRef = el)}
+            className=" h-[600px] md:h-auto bg-white absolute top-[50%] left-[50%] w-[80%] md:w-[600px] -translate-y-[50%] -translate-x-[50%] overflow-scroll"
+          >
             <img src={jsw} width="200px" className="py-2 mx-auto" alt="" />
             <p className="px-2 my-2 text-xl font-semibold text-center capitalize">
               {id} Folder QR CODE
@@ -185,12 +190,23 @@ const FolderPage = () => {
               {" "}
               <div ref={qrRef}>{qrcode}</div>
             </div>
-            <button
-              onClick={downloadQRCode}
-              className="w-full px-4 py-2 font-semibold text-white bg-blue-500 "
-            >
-              Download
-            </button>
+            <div className="flex gap-3 mb-0.5 px-0.5">
+              {" "}
+              <button
+                onClick={downloadQRCode}
+                className="px-4 py-2 font-semibold text-white bg-green-500 rounded-md basis-1/2 "
+              >
+                Download
+              </button>
+              <ReactToPrint
+                trigger={() => (
+                  <button className="px-4 py-2 font-semibold text-center text-white bg-blue-500 rounded-md basis-1/2 ">
+                    Print this out!
+                  </button>
+                )}
+                content={() => componentRef}
+              />
+            </div>
           </div>
         </Modal>
 
@@ -311,17 +327,17 @@ const FolderPage = () => {
                   className="mx-auto"
                   alt=""
                 />
-                <p className="mt-4 font-bold text-gray-500">
+                <p className="mt-4 font-bold text-center text-gray-500">
                   No File Found With the given DockNum{" "}
                 </p>
               </div>
             )}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center ">
             <img src={nondata} height="200px" width="300px" alt="" />
 
-            <p className="flex justify-center font-semibold text-gray-600 ">
+            <p className="flex justify-center font-semibold text-center text-gray-600 ">
               No Data Present Here
             </p>
           </div>

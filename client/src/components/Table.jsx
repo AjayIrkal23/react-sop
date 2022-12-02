@@ -15,8 +15,8 @@ const Table = ({ filedata, getfiles }) => {
     getfiles();
   };
   return (
-    <div>
-      <div className="w-[800px] flex-col min-h-auto border max-h-[600px] overflow-scroll border-black/50 shadow-lg">
+    <div className="">
+      <div className="md:w-[800px] w-[98vw] flex-col min-h-auto border max-h-[600px] overflow-scroll text-center border-black/50 shadow-lg">
         <div className=" text-center border-b-[1px] border-black/50 bg-gray-300 ">
           <div className="flex">
             {" "}
@@ -44,9 +44,9 @@ const Table = ({ filedata, getfiles }) => {
               <p className="basis-1/4 py-2.5 border-r-[1px] border-black/30 ">
                 {item.filename.split(" ")[1]}
               </p>
-              <p className="basis-1/4 py-2.5 border-r-[1px]  border-black/30 ">
+              <p className="basis-1/4 py-2.5 border-r-[1px]   border-black/30 ">
                 <Link to={`/file/${item.filename}`}>
-                  <span className="flex items-center justify-center w-[120px] text-white py-1 rounded-md shadow-lg hover:scale-110 transition-all duration-200 ease-in-out cursor-pointer mx-auto gap-2 text-sm bg-green-500 ">
+                  <span className="flex flex-col sm:flex-row items-center space-x-1 justify-center md:w-[120px]  w-[90%] text-white py-1 rounded-md shadow-lg hover:scale-110 transition-all duration-200 ease-in-out cursor-pointer mx-auto sm:gap-2 text-sm bg-green-500 ">
                     Click Here <AiFillFolderOpen className="text-xl" />
                   </span>
                 </Link>
@@ -57,7 +57,7 @@ const Table = ({ filedata, getfiles }) => {
                 }   border-black/30 `}
               >
                 <span
-                  className="flex  items-center justify-center w-[120px] text-white py-1 rounded-md shadow-lg hover:scale-110 transition-all duration-200 ease-in-out cursor-pointer mx-auto gap-2 text-sm bg-red-500 "
+                  className="flex flex-col sm:flex-row  items-center justify-center  md:w-[120px] w-[90%] space-x-1 text-white py-1 rounded-md shadow-lg hover:scale-110 transition-all duration-200 ease-in-out cursor-pointer mx-auto sm:gap-2 text-sm bg-red-500 "
                   onClick={(e) => HandleDelete(e, item.filename)}
                 >
                   Click Here <AiFillCloseCircle className="text-xl" />
@@ -69,7 +69,7 @@ const Table = ({ filedata, getfiles }) => {
                 }   border-black/30 `}
               >
                 <Link to="/login">
-                  <span className="flex  items-center justify-center w-[120px] text-white py-1 rounded-md shadow-lg hover:scale-110 transition-all duration-200 ease-in-out cursor-pointer mx-auto gap-2 text-sm bg-blue-500 ">
+                  <span className="flex flex-col sm:flex-row items-center justify-center space-x-1  md:w-[120px] w-[90%] text-white py-1 rounded-md shadow-lg hover:scale-110 transition-all duration-200 ease-in-out cursor-pointer mx-auto sm:gap-2 text-sm bg-blue-500 ">
                     Login <BiLogIn className="text-xl" />
                   </span>
                 </Link>
