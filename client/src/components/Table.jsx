@@ -7,20 +7,17 @@ import { AccountContext } from "../context/accountprovider";
 import { BiLogIn } from "react-icons/bi";
 import { QRCodeCanvas } from "qrcode.react";
 import ReactToPrint from "react-to-print";
-import { Modal } from "@mui/material";
+import { Modal, unstable_ClassNameGenerator } from "@mui/material";
 import jsw from "../assets/jsw.png";
 
 const Table = ({ filedata, getfiles }) => {
   let componentRef = useRef();
   const [url, setUrl] = useState("");
-  const [open, setopen] = useState(false);
+  const [name, setName] = useState(null);
   const [open1, setopen1] = useState(false);
-  const [file, setfile] = useState(null);
-  const [sendingdata, setsendingdata] = useState({});
 
   const qrRef = useRef();
   const location = useLocation();
-  const id = location.pathname.split("/")[2];
 
   const qrcode = (
     <QRCodeCanvas
@@ -61,6 +58,7 @@ const Table = ({ filedata, getfiles }) => {
   };
 
   const handleOpen = (data) => {
+    setName(data.split(" ")[0]);
     setUrl(
       `https://react-sop.onrender.com/file/${data.split(" ")[0]}%20${
         data.split(" ")[1]
@@ -112,7 +110,7 @@ const Table = ({ filedata, getfiles }) => {
                 </a>
               </p>
               <p
-                className={`basis-1/4 py-2.5 border-r-[1px] ${
+                className={`basis-1/5 py-2.5 border-r-[1px] ${
                   user ? "inline-block" : "hidden"
                 }   border-black/30 `}
               >
@@ -162,7 +160,7 @@ const Table = ({ filedata, getfiles }) => {
         >
           <img src={jsw} width="200px" className="py-2 mx-auto" alt="" />
           <p className="px-2 my-2 text-xl font-semibold text-center capitalize">
-            file QR CODE
+            {name} file QR CODE
           </p>
           <div className="flex justify-center p-8">
             {" "}

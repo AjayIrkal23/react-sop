@@ -270,22 +270,15 @@ const FolderPage = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col md:gap-6 md:flex-row">
-                <div className="flex flex-col mx-auto mb-4">
-                  {" "}
-                  <input
-                    type="text"
-                    {...register("Document Name", { required: true })}
-                    placeholder="Document Name"
-                    className="border-[1px] py-2  w-[250px] text-center outline-none shadow-sm rounded-md"
-                  />
-                </div>
-              </div>
               {errors.docref && (
                 <p className="py-1 text-center text-red-500">
                   Please Fill in All The Fields
                 </p>
               )}
+
+              <p className="py-1 font-semibold text-center text-gray-800 text-sm ">
+                * Note Uploading File Name Shouldnt have Any Spaces Between*
+              </p>
               <div className="flex flex-col items-center md:flex-row md:gap-6 ">
                 {" "}
                 <label
