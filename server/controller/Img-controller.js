@@ -1,7 +1,7 @@
 import grid from "gridfs-stream";
 import mongoose from "mongoose";
 
-const url = "https://react-sop.vercel.app";
+const url = "https://react-sop.onrender.com";
 
 const conn = mongoose.connection;
 let gfs, gb;
