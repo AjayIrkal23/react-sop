@@ -50,6 +50,7 @@ const File = () => {
     let anchor = document.createElement("a");
     anchor.href = image;
     anchor.download = `qr-code.png`;
+
     document.body.appendChild(anchor);
     anchor.click();
     document.body.removeChild(anchor);
