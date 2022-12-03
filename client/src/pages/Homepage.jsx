@@ -125,7 +125,14 @@ export default function Home() {
       name,
     });
     getAllDep();
-    toast.success("Department Deleted Successfully");
+  };
+
+  const data = (data) => {
+    toast.promise(HandleDeleteDep(), {
+      loading: "Loading",
+      success: "Department Deleted Successfully",
+      error: "Error when fetching",
+    });
   };
 
   return (
@@ -170,7 +177,7 @@ export default function Home() {
             </select>
             <button
               className="px-3 bg-red-500 py-1.5 font-bold text-white shadow-xl"
-              onClick={HandleDeleteDep}
+              onClick={data}
             >
               Delete The Selected Department
             </button>

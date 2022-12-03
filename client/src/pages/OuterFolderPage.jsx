@@ -84,12 +84,11 @@ const OuterFolderPage = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
     let res = await axios.post(
       "https://react-sop.onrender.com/addfolder",
       data
     );
-    toast.success("Data Uploaded Successfully");
+
     reset();
 
     getFiles();
@@ -102,6 +101,14 @@ const OuterFolderPage = () => {
   const handleClose1 = () => {
     setopen1(false);
   };
+  const data = (data) => {
+    toast.promise(onSubmit(data), {
+      loading: "Loading",
+      success: "Folder Added Successfully",
+      error: "Error when Adding",
+    });
+  };
+
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />;
@@ -193,10 +200,7 @@ const OuterFolderPage = () => {
             <p className="px-2 my-2 text-xl font-semibold text-center capitalize">
               Enter The Following information to add a new Folder
             </p>
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col px-6 "
-            >
+            <form onSubmit={handleSubmit(data)} className="flex flex-col px-6 ">
               <div className="flex flex-col mt-8 md:gap-6 md:flex-row">
                 <div className="flex flex-col mx-auto mb-4">
                   <input
