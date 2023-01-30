@@ -84,8 +84,9 @@ const OuterFolderPage = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    console.log(data);
     let res = await axios.post(
-      "https://react-sop.onrender.com/addfolder",
+      `${process.env.REACT_APP_API_URL}/addfolder`,
       data
     );
 
@@ -111,7 +112,6 @@ const OuterFolderPage = () => {
 
   return (
     <>
-      <Toaster position="top-center" reverseOrder={false} />;
       <div className="z-50">
         <Navbar />
       </div>
@@ -126,12 +126,18 @@ const OuterFolderPage = () => {
         >
           Show Qr Code
         </button>
+        <Link to="/addSubUser">
+          <p className=" flex w-56 mx-auto py-1.5 my-2 bg-green-500   justify-center font-semibold text-white rounded-md items-center gap-1 ">
+            Add Folder User
+            <AiFillFileAdd className="text-xl text-black" />{" "}
+          </p>
+        </Link>
         <div className="w-[120px] mx-auto my-12 md:w-auto md:mx-0 md:my-0">
           {" "}
           <div>
             <div
               className={`md:absolute  md:right-12 ${
-                user ? "inline-block" : "hidden"
+                user?.name || admin?.name ? "inline-block" : "hidden"
               }   md:top-[120px] bg-green-500 py-1.5 px-3 text-white shadow-xl shadow-gray-200 rounded-md hover:scale-110 transition-all duration-200 ease-in-out cursor-pointer`}
             >
               <p

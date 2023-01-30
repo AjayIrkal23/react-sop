@@ -29,7 +29,7 @@ const Table = ({ filedata, getfiles }) => {
     />
   );
 
-  const { user, admin } = useContext(AccountContext);
+  const { user, admin, subUser } = useContext(AccountContext);
   const HandleDelete = async (e, name) => {
     e.preventDefault();
     const res = await axios.post("https://react-sop.onrender.com/filedelete", {
@@ -111,7 +111,9 @@ const Table = ({ filedata, getfiles }) => {
               </p>
               <p
                 className={`basis-1/5 py-2.5 border-r-[1px] ${
-                  user ? "inline-block" : "hidden"
+                  user?.name || admin?.name || subUser?.name
+                    ? "inline-block"
+                    : "hidden"
                 }   border-black/30 `}
               >
                 <span

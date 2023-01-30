@@ -7,8 +7,11 @@ import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { AccountContext } from "../context/accountprovider";
 import jsw from "../assets/jsw.png";
+import { useNavigate } from "react-router";
 
-const Login = () => {
+const SubUserLogin = () => {
+  const navigate = useNavigate();
+  console.log(navigate);
   const {
     register,
     handleSubmit,
@@ -17,17 +20,16 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const { user, setUser } = useContext(AccountContext);
-  console.log(user?.users);
+  const { subUser, setSubUser } = useContext(AccountContext);
 
   const onSubmit = async (data) => {
     try {
       let res = await axios.post(
-        `${process.env.REACT_APP_API_URL}/getUser`,
+        `${process.env.REACT_APP_API_URL}/getSubUser`,
         data
       );
       toast.success(`Welcome ${data.name}`);
-      setUser(res.data.users);
+      setSubUser(res.data.users);
     } catch {
       toast.error("Invalid Username or Password");
       reset();
@@ -40,7 +42,7 @@ const Login = () => {
 
       <div className="max-w-[600px] bg-[#f5f3f3] md:px-28 px-12 h-[300px] shadow-md border-[1px] duration-300 ease-in-out transition-all">
         <div className="py-3 text-center">
-          <p className="text-xl font-semibold">Department Login Page</p>
+          <p className="text-xl font-semibold">Folder Login Page</p>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col ">
           {/* register your input into the hook by invoking the "register" function */}
@@ -87,4 +89,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SubUserLogin;

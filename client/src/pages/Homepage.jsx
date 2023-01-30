@@ -109,7 +109,7 @@ export default function Home() {
 
   const DeleteUser = async (data) => {
     let res = await axios.post(
-      "https://react-sop.onrender.com/delteuser",
+      `${process.env.REACT_APP_API_URL}/delteuser`,
       data
     );
     console.log(res);
@@ -147,7 +147,9 @@ export default function Home() {
           <p className="text-3xl font-semibold text-center uppercase">
             Admin DashBoard{" "}
           </p>
-          <p className="my-4 text-xl text-center uppercase">User Interaction</p>
+          <p className="my-4 text-xl text-center uppercase">
+            Admin Interaction
+          </p>
           <div className="flex  flex-col md:flex-row justify-center border-b-[1px] pb-4 gap-6">
             <Link to="/addnew">
               <button className="px-3 w-full bg-green-500 py-1.5 font-bold text-white shadow-xl">
@@ -220,166 +222,25 @@ export default function Home() {
         </div>
       ) : (
         <>
-          {user ? (
-            <div className="z-0 mt-28">
-              <p className="px-6 font-semibold text-center capitalize text-xm">
-                Documents Uploaded in this department
-              </p>
-              <p className="text-center capitalize text-md">
-                Current Dep : {user.users.department}
-              </p>
-              <div className="w-[120px] mx-auto my-12 md:w-auto md:mx-0 md:my-0">
-                {" "}
-                <div>
-                  <div className="md:absolute  md:right-12  md:top-[120px] bg-green-500 py-1.5 px-3 text-white shadow-xl shadow-gray-200 rounded-md hover:scale-110 transition-all duration-200 ease-in-out cursor-pointer">
-                    <p
-                      className="flex items-center gap-1 "
-                      onClick={getAllusers}
-                    >
-                      Add New
-                      <AiFillFileAdd className="text-xl text-black" />{" "}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <div className=" h-[600px] md:h-auto bg-white absolute top-[50%] left-[50%] w-[80%] md:w-[600px] -translate-y-[50%] -translate-x-[50%] overflow-scroll">
-                  <img
-                    src={jsw}
-                    width="200px"
-                    className="py-2 mx-auto"
-                    alt=""
-                  />
-                  <p className="px-2 my-2 text-xl font-semibold text-center capitalize">
-                    Enter The Following information to add a new File
-                  </p>
-                  <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    className="flex flex-col px-6 "
-                  >
-                    <div className="flex flex-col mt-8 md:gap-6 md:flex-row">
-                      <div className="flex flex-col mx-auto mb-4 ">
-                        {" "}
-                        <input
-                          type="text"
-                          {...register("Name", { required: true })}
-                          placeholder="Your Name"
-                          className="border-[1px] py-2  w-[250px] text-center outline-none shadow-sm rounded-md"
-                        />
-                      </div>
-                      <div className="flex flex-col mx-auto mb-4">
-                        {" "}
-                        <input
-                          type="text"
-                          {...register("DepName", { required: true })}
-                          placeholder="Department Name"
-                          className="border-[1px] py-2  w-[250px] text-center outline-none shadow-sm rounded-md"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex flex-col md:gap-6 md:flex-row ">
-                      <div className="flex flex-col mx-auto mb-4">
-                        {" "}
-                        <input
-                          type="text"
-                          {...register("DocRef", { required: true })}
-                          placeholder="Doc Ref Num"
-                          className="border-[1px] py-2  w-[250px] text-center outline-none shadow-sm rounded-md"
-                        />
-                      </div>
-                      <div className="flex flex-col mx-auto mb-4">
-                        {" "}
-                        <input
-                          type="text"
-                          {...register("DateDay", { required: true })}
-                          placeholder="Enter Date And Day"
-                          className="border-[1px] py-2  w-[250px] text-center outline-none shadow-sm rounded-md"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col md:gap-6 md:flex-row">
-                      <div className="flex flex-col mx-auto mb-4">
-                        {" "}
-                        <input
-                          type="text"
-                          {...register("Document Name", { required: true })}
-                          placeholder="Document Name"
-                          className="border-[1px] py-2  w-[250px] text-center outline-none shadow-sm rounded-md"
-                        />
-                      </div>
-                    </div>
-                    {errors && (
-                      <p className="py-1 text-center text-red-500">
-                        Please Fill in All The Fields
-                      </p>
-                    )}
-                    <div className="flex flex-col items-center md:flex-row md:gap-6 ">
-                      {" "}
-                      <label
-                        htmlFor="filesec"
-                        className="flex items-center gap-1 text-white bg-green-500 w-[180px]  justify-center rounded-md shadow-md  outline-none py-1.5 my-2 md:my-5 curosr-pointer "
-                      >
-                        Select Your File <FiUpload className="text-xl" />{" "}
-                      </label>
-                      <input
-                        className="hidden"
-                        id="filesec"
-                        multiple
-                        type="file"
-                        onChange={onFileUpload}
-                      />
-                      <p>Selected File : {file?.length} </p>
-                    </div>
-                    <button
-                      type="submit"
-                      className="bg-[#16469d] text-white py-2 my-2 rounded-md font-semibold"
-                    >
-                      Submit
-                    </button>
-                  </form>
-                </div>
-              </Modal>
-
-              <div className="flex flex-wrap items-center justify-center gap-12 px-12 mt-12">
-                <Folder />
-                <Folder />
-                <Folder />
-                <Folder />
-                <Folder />
-                <Folder />
-                <Folder />
-                <Folder />
-              </div>
-            </div>
-          ) : (
-            <div className="max-w-[1200px] mx-auto mt-[120px]">
-              <img
-                src={robot}
-                height="100%"
-                width="50%"
-                className="mx-auto"
-                alt=""
-              />
-              <h1 className="my-2 text-2xl font-semibold text-center">
-                Please Login To See Data
+          <div className="max-w-[1200px] mx-auto mt-[120px]">
+            <img
+              src={robot}
+              height="100%"
+              width="50%"
+              className="mx-auto"
+              alt=""
+            />
+            <h1 className="my-2 text-2xl font-semibold text-center">
+              Please Login To See Data
+            </h1>
+            <Link to="/login">
+              <h1 className="my-2 text-xs font-semibold text-center text-gray-500 underline">
+                Login
               </h1>
-              <Link to="/login">
-                <h1 className="my-2 text-xs font-semibold text-center text-gray-500 underline">
-                  Login
-                </h1>
-              </Link>
-            </div>
-          )}
+            </Link>
+          </div>
         </>
       )}
-      <Toaster position="top-center" reverseOrder={false} />;
     </div>
   );
 }

@@ -89,7 +89,7 @@ const FolderPage = () => {
     document.body.removeChild(anchor);
   };
 
-  const { user, admin } = useContext(AccountContext);
+  const { user, admin, subUser } = useContext(AccountContext);
 
   const onFileUpload = (e) => {
     setfile(e.target.files[0], id);
@@ -115,7 +115,7 @@ const FolderPage = () => {
       data.append("file", file);
 
       let res = await axios.post(
-        "https://react-sop.onrender.com/file/upload",
+        `${process.env.REACT_APP_API_URL}/file/upload`,
         data
       );
       toast.success("Data Uploaded Successfully");
@@ -135,7 +135,6 @@ const FolderPage = () => {
 
   return (
     <>
-      <Toaster position="top-center" reverseOrder={false} />;
       <div className="z-50">
         <Navbar />
       </div>
@@ -161,7 +160,9 @@ const FolderPage = () => {
           <div>
             <div
               className={`md:absolute  md:right-12 ${
-                user ? "inline-block" : "hidden"
+                user?.name || admin?.name || subUser?.name
+                  ? "inline-block"
+                  : "hidden"
               }   md:top-[120px] bg-green-500 py-1.5 px-3 text-white shadow-xl shadow-gray-200 rounded-md hover:scale-110 transition-all duration-200 ease-in-out cursor-pointer`}
             >
               <p
@@ -239,7 +240,7 @@ const FolderPage = () => {
                     type="text"
                     {...register("Name", { required: true })}
                     placeholder="Your Name"
-                    value={user?.name}
+                    value={user?.name || admin?.name || subUser?.name}
                     className="border-[1px] py-2 bg-gray-300  w-[250px] text-center outline-none shadow-sm rounded-md"
                   />
                 </div>

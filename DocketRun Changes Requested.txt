@@ -1,0 +1,38 @@
+video and images view formats
+replace existing file
+
+user management - Auth ? Need to be planned Gsuite 
+Research - User Auth + OTP
+
+Email and Password 
+Forgot Password OTP
+
+Super Admin ALL Departments  
+Admin One Department Access / Mutiple Level Access of Departments
+User Folder Level Access
+
+Grey Data
+
+
+
+System Analysis ==>>>>
+
+
+Reporting or Any Images required better filenaming formats
+LINE DATA ACROSS MUTIPLE SYSTEMS REALTIME/WEEK/MONTHLY/QUATERLY
+Report Download Image
+
+
+
+Completed =>>>
+
+Settings
+SMTP PROTCOL
+DOMAIN MAIL
+EMAIL
+PASSWORD
+SSL YES/NO
+PORT NUMBER
+ENABLE/DISABLED
+Default Selection Blank Option
+Auto Select recent one after 30 seconds

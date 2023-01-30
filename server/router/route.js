@@ -16,17 +16,21 @@ import {
   getAllFolders,
   GetCollections,
   Getdep,
+  getSubUser,
   getUser,
+  subUser,
 } from "../controller/user.js";
 import upload from "../upload.js";
 
 const route = express.Router();
 
 route.post("/add", addUser);
+route.post("/subUser", subUser);
 route.post("/adddep", DepartmentAdd);
 route.post("/addfolder", folderAdd);
 route.post("/getadmin", getAdmin);
 route.post("/getuser", getUser);
+route.post("/getSubUser", getSubUser);
 route.get("/getall", GetAll);
 route.get("/getallfolders", getAllFolders);
 route.get("/getcollections", GetCollections);

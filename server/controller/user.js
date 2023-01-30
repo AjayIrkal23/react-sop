@@ -2,6 +2,8 @@ import { collection } from "../db/db.js";
 import admin from "../model/admin.js";
 import departments from "../model/Departments.js";
 import folder from "../model/folder.js";
+import SubUser from "../model/slaves.js";
+
 import user from "../model/user.js";
 
 export const addUser = async (request, response) => {
@@ -14,6 +16,25 @@ export const addUser = async (request, response) => {
     }
 
     const newUser = new user(request.body);
+    await newUser.save();
+    response.status(200).json(newUser);
+    console.log(newUser);
+  } catch (error) {
+    response.status(500).json(error);
+  }
+};
+
+export const subUser = async (request, response) => {
+  console.log("gello");
+  try {
+    let exist = await SubUser.findOne({ name: request.body.name });
+
+    if (exist) {
+      response.status(203).json("user already exists");
+      return;
+    }
+
+    const newUser = new SubUser(request.body);
     await newUser.save();
     response.status(200).json(newUser);
     console.log(newUser);
@@ -83,6 +104,19 @@ export const getAdmin = async (req, res) => {
 export const getUser = async (req, res) => {
   try {
     const users = await user.findOne({ name: req.body.name });
+    !users && res.status(401).json("wrong Username");
+    const pass = users?.password;
+    pass !== req.body.password && res.status(401).json("Wrong Password");
+
+    res.status(200).json({ users });
+  } catch (error) {
+    // res.status(500).json(error);
+  }
+};
+
+export const getSubUser = async (req, res) => {
+  try {
+    const users = await SubUser.findOne({ name: req.body.name });
     !users && res.status(401).json("wrong Username");
     const pass = users?.password;
     pass !== req.body.password && res.status(401).json("Wrong Password");

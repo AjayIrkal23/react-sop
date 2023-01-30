@@ -15,15 +15,15 @@ const Admin = () => {
   } = useForm();
 
   const { admin, setAdmin } = useContext(AccountContext);
-  console.log(admin);
 
   const onSubmit = async (data) => {
     try {
       let res = await axios.post(
-        "https://react-sop.onrender.com/getadmin",
+        `${process.env.REACT_APP_API_URL}/getadmin`,
         data
       );
-      setAdmin(res.data);
+      console.log(res.data);
+      setAdmin(res.data.user);
       toast.success(`Welcome ${data.name}`);
     } catch {
       toast.error("Invalid Username or Password");
@@ -32,7 +32,6 @@ const Admin = () => {
 
   return (
     <div className="flex relative flex-col items-center justify-center h-screen -mt-[60px] bg-[white] ">
-      <Toaster position="top-center" reverseOrder={false} />;
       <img src={jsw} width="300" alt="" className="my-5" />
       <div className="max-w-[600px] bg-[#f5f3f3] md:px-28 px-12 h-[300px] shadow-md border-[1px] duration-300 ease-in-out transition-all">
         <div className="py-3 text-center">

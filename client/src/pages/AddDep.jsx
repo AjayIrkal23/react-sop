@@ -15,14 +15,13 @@ const AddDep = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    let res = axios.post("https://react-sop.onrender.com/adddep", data);
+    let res = axios.post(`${process.env.REACT_APP_API_URL}/adddep`, data);
     toast.success("Successfully Added!");
     reset();
   }; // your form submit function which will invoke after successful validation
 
   return (
     <div className="flex flex-col items-center justify-center h-screen -mt-[60px] bg-[white]">
-      <Toaster position="top-center" reverseOrder={false} />;
       <img src={jsw} width="300" alt="" className="my-5" />
       <div className="max-w-[700px] bg-[#f5f3f3]  px-12  py-6 shadow-md border-[1px] duration-300 ease-in-out transition-all">
         <div className="py-3 text-center">

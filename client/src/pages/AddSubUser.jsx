@@ -1,13 +1,14 @@
 import axios from "axios";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import jsw from "../assets/jsw.png";
 import toast, { Toaster } from "react-hot-toast";
+import { AccountContext } from "../context/accountprovider";
 
-const AddUser = () => {
-  const [depdata, setDepdata] = useState([]);
-  console.log(depdata);
+const AddSubUser = () => {
+  const [folderdata, setfolderdata] = useState([]);
+  const { user } = useContext(AccountContext);
   const {
     register,
     handleSubmit,
@@ -16,8 +17,24 @@ const AddUser = () => {
     formState: { errors },
   } = useForm();
 
+  const getFolders = async () => {
+    await axios
+      .get("https://react-sop.onrender.com/getallfolders")
+      .then((res) => {
+        setfolderdata(res?.data);
+      });
+  };
+
+  useEffect(() => {
+    getFolders();
+  }, []);
+
   const onSubmit = async (data) => {
-    let res = await axios.post(`${process.env.REACT_APP_API_URL}/add`, data);
+    console.log(data);
+    let res = await axios.post(
+      `${process.env.REACT_APP_API_URL}/subUser`,
+      data
+    );
     console.log(res);
     if (res.status === 203) {
       toast.error("Username Already Registered");
@@ -28,21 +45,12 @@ const AddUser = () => {
     reset();
   }; // your form submit function which will invoke after successful validation
 
-  const getAllDep = async () => {
-    let res = await axios.get("https://react-sop.onrender.com/getdepartments");
-
-    setDepdata(res.data);
-  };
-
-  useEffect(() => {
-    getAllDep();
-  }, []);
   return (
     <div className="flex flex-col items-center justify-center h-screen -mt-[60px] bg-[white]">
       <img src={jsw} width="300" alt="" className="my-5" />
       <div className="max-w-[700px] bg-[#f5f3f3]  px-12  py-6 shadow-md border-[1px] duration-300 ease-in-out transition-all">
         <div className="py-3 text-center">
-          <p className="text-xl font-semibold">New User Signup Page</p>
+          <p className="text-xl font-semibold">New Sub User Signup Page</p>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col ">
           {/* register your input into the hook by invoking the "register" function */}
@@ -82,31 +90,48 @@ const AddUser = () => {
               <select
                 className="border-[1px] py-2  w-[250px] text-center outline-none shadow-sm rounded-md"
                 name=""
-                {...register("department")}
+                {...register("department", { required: true })}
                 id=""
               >
-                {depdata.map((item) => (
-                  <option value={item.name}>{item.name}</option>
-                ))}
+                <option value={user?.department}>{user?.department}</option>
               </select>
             </div>
           </div>
 
           {/* include validation with required or other standard HTML validation rules */}
-          <div className="mx-auto mb-4">
+          <div className=" gap-6 mb-4 flex">
             {" "}
-            <input
-              type="password"
-              {...register("password", { required: true })}
-              placeholder="Password"
-              className="border-[1px] py-2  w-[300px] text-center outline-none shadow-sm rounded-md"
-            />
-            {/* errors will return when field validation fails  */}
-            {errors.password && (
-              <p className="py-1 text-center text-red-500">
-                This field is required
-              </p>
-            )}
+            <div>
+              <input
+                type="password"
+                {...register("password", { required: true })}
+                placeholder="Password"
+                className="border-[1px] py-2  w-[250px] text-center outline-none shadow-sm rounded-md"
+              />
+              {/* errors will return when field validation fails  */}
+              {errors.password && (
+                <p className="py-1 text-center text-red-500">
+                  This field is required
+                </p>
+              )}
+            </div>
+            <div>
+              {" "}
+              <select
+                className="border-[1px] py-2  w-[250px] text-center outline-none shadow-sm rounded-md"
+                name=""
+                {...register("folder", { required: true })}
+                id=""
+              >
+                {folderdata.map((item) => (
+                  <>
+                    {item?.department === user?.department && (
+                      <option value={item.name}>{item.name}</option>
+                    )}
+                  </>
+                ))}
+              </select>
+            </div>
           </div>
 
           <button
@@ -121,4 +146,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default AddSubUser;
