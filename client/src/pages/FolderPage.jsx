@@ -24,20 +24,6 @@ const FolderPage = () => {
   const [filedata, setfiledata] = useState(null);
   console.log(filedata);
   const [firstdata, setfirstdata] = useState(null);
-  const getFiles = async () => {
-    let res = await axios.get("https://react-sop.onrender.com/allfiles");
-
-    let filtered = res?.data?.filter((item) => {
-      if (item.filename.includes(id)) {
-        return item;
-      }
-    });
-    setfirstdata(filtered);
-
-    if (filtered.length > 0) {
-      setfiledata(filtered);
-    }
-  };
 
   const HandleChange = (e) => {
     let filtered = firstdata.filter((item) => {
@@ -60,12 +46,29 @@ const FolderPage = () => {
 
   const qrRef = useRef();
   const location = useLocation();
-  const id = location.pathname.split("/")[2];
+  const id = `${location.pathname.split("/")[1]} ${
+    location.pathname.split("/")[2]
+  }`;
 
   useEffect(() => {
     // 👇️ WITHOUT React router
     setUrl(window.location.href);
   }, [open1]);
+
+  const getFiles = async () => {
+    let res = await axios.get(`${process.env.REACT_APP_API_URL}/allfiles`);
+
+    let filtered = res?.data?.filter((item) => {
+      if (item.filename.includes(id)) {
+        return item;
+      }
+    });
+    setfirstdata(filtered);
+
+    if (filtered.length > 0) {
+      setfiledata(filtered);
+    }
+  };
 
   const qrcode = (
     <QRCodeCanvas
@@ -142,7 +145,9 @@ const FolderPage = () => {
         <p className="px-6 font-semibold text-center capitalize text-xm">
           Documents Uploaded in this department
         </p>
-        <p className="text-center capitalize text-md">Current Folder : {id}</p>
+        <p className="text-center capitalize text-md">
+          Current Folder : {location?.pathname?.split("/")[2]}
+        </p>
         <button
           onClick={() => setopen1(!open1)}
           className=" flex w-56 mx-auto py-1.5 my-2 bg-green-500  items-center justify-center font-semibold text-white rounded-md"

@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { AccountContext } from "../context/accountprovider";
 import jsw from "../assets/jsw.png";
+import { useNavigate } from "react-router";
 
 const Login = () => {
   const {
@@ -18,7 +19,8 @@ const Login = () => {
   } = useForm();
 
   const { user, setUser } = useContext(AccountContext);
-  console.log(user?.users);
+
+  const Navigate = useNavigate();
 
   const onSubmit = async (data) => {
     try {
@@ -28,6 +30,8 @@ const Login = () => {
       );
       toast.success(`Welcome ${data.name}`);
       setUser(res.data.users);
+      Navigate(`/${res.data.users.department}`);
+      localStorage.setItem("user", JSON.stringify(res.data.users));
     } catch {
       toast.error("Invalid Username or Password");
       reset();
@@ -39,7 +43,7 @@ const Login = () => {
       <img src={jsw} width="300" alt="" className="my-5" />
 
       <div className="max-w-[600px] bg-[#f5f3f3] md:px-28 px-12 h-[300px] shadow-md border-[1px] duration-300 ease-in-out transition-all">
-        <div className="py-3 text-center">
+        <div className="pt-3 text-center pb-1 ">
           <p className="text-xl font-semibold">Department Login Page</p>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col ">
@@ -81,6 +85,16 @@ const Login = () => {
           >
             Login
           </button>
+          <p className="pt-1 font-semibold text-center">
+            Folder User ?{" "}
+            <span
+              className="text-gray-600 text-sm italic font-normal underline cursor-pointer"
+              onClick={() => Navigate("/subUserLogin")}
+            >
+              Click Here
+            </span>{" "}
+            To Login
+          </p>
         </form>
       </div>
     </div>

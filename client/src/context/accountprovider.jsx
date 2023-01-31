@@ -7,7 +7,17 @@ export const Accountprovider = ({ children }) => {
   const [admin, setAdmin] = useState(null);
   const [subUser, setSubUser] = useState(null);
   const [user, setUser] = useState(null);
-  console.log(user, admin);
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem("user"));
+    const items1 = JSON.parse(localStorage.getItem("admin"));
+    const items2 = JSON.parse(localStorage.getItem("subUser"));
+    if (items || items1 || items2) {
+      setAdmin(items1);
+      setSubUser(items2);
+      setUser(items);
+    }
+  }, []);
 
   return (
     <AccountContext.Provider

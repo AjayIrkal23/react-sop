@@ -126,12 +126,14 @@ const OuterFolderPage = () => {
         >
           Show Qr Code
         </button>
-        <Link to="/addSubUser">
-          <p className=" flex w-56 mx-auto py-1.5 my-2 bg-green-500   justify-center font-semibold text-white rounded-md items-center gap-1 ">
-            Add Folder User
-            <AiFillFileAdd className="text-xl text-black" />{" "}
-          </p>
-        </Link>
+        {user?.name && (
+          <Link to="/addSubUser">
+            <p className=" flex w-56 mx-auto py-1.5 my-2 bg-green-500   justify-center font-semibold text-white rounded-md items-center gap-1 ">
+              Add Folder User
+              <AiFillFileAdd className="text-xl text-black" />{" "}
+            </p>
+          </Link>
+        )}
         <div className="w-[120px] mx-auto my-12 md:w-auto md:mx-0 md:my-0">
           {" "}
           <div>

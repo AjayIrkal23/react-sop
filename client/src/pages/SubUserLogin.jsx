@@ -28,6 +28,7 @@ const SubUserLogin = () => {
         `${process.env.REACT_APP_API_URL}/getSubUser`,
         data
       );
+      localStorage.setItem("subUser", JSON.stringify(res.data.users));
       toast.success(`Welcome ${data.name}`);
       setSubUser(res.data.users);
     } catch {

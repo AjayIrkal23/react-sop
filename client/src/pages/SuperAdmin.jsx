@@ -22,7 +22,7 @@ const Admin = () => {
         `${process.env.REACT_APP_API_URL}/getadmin`,
         data
       );
-      console.log(res.data);
+      localStorage.setItem("admin", JSON.stringify(res.data.user));
       setAdmin(res.data.user);
       toast.success(`Welcome ${data.name}`);
     } catch {

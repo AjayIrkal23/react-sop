@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Route, Routes } from "react-router";
 import { HashRouter, Navigate } from "react-router-dom";
 
@@ -21,12 +21,17 @@ import AddSubUser from "./pages/AddSubUser";
 const App = () => {
   const { admin, user, subUser } = useContext(AccountContext);
   console.log(user);
+
   return (
     <div>
       <Toaster position="top-center" />;
       <HashRouter>
         <Routes>
-          <Route path="/" exact element={<Home />} />
+          <Route
+            path="/"
+            exact
+            element={admin?.name ? <Home /> : <Navigate to="/login" />}
+          />
           <Route path="/file/:ref" element={<File />} />
           <Route
             element={
@@ -68,7 +73,7 @@ const App = () => {
           <Route
             path="/login"
             element={
-              user ? <Navigate to={`/${user?.department}`} /> : <Login />
+              user?.name ? <Navigate to={`/${user?.department}`} /> : <Login />
             }
           />
           <Route

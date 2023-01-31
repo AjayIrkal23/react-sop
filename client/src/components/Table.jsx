@@ -39,8 +39,6 @@ const Table = ({ filedata, getfiles }) => {
     getfiles();
   };
 
-  const n = 20;
-
   const downloadQRCode = (e) => {
     e.preventDefault();
     let canvas = qrRef.current.querySelector("canvas");
@@ -125,7 +123,9 @@ const Table = ({ filedata, getfiles }) => {
               </p>
               <p
                 className={`basis-1/5 py-2.5 border-r-[1px] ${
-                  user && "hidden"
+                  user?.name || admin?.name || subUser?.name
+                    ? "hidden"
+                    : "inline-block"
                 }   border-black/30 `}
               >
                 <Link to="/login">
