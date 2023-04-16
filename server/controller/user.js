@@ -120,6 +120,7 @@ export const getAdmin = async (req, res) => {
 };
 
 export const getUser = async (req, res) => {
+  console.log(req.body);
   axios.get(
     `https://media.smsgupshup.com/GatewayAPI/rest?userid=2000209012&password=jLwCZAgX5&send_to=9538513924&v=1.1&format=json&msg_type=TEXT&method=SENDMESSAGE&msg=Please+verify+your+number.+OTP+is+55555%2C+Please+do+not+share+this+to+anyone+else.%0ARegards&isTemplate=true&header=Number+Verification&footer=Aandata.Guru+Team`
   );
