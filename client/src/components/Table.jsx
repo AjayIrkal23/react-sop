@@ -56,11 +56,12 @@ const Table = ({ filedata, getfiles }) => {
   };
 
   const handleOpen = (data) => {
+    console.log(data);
     setName(data.split(" ")[0]);
     setUrl(
       `https://react-sop.onrender.com/file/${data.split(" ")[0]}%20${
         data.split(" ")[1]
-      }`
+      }%20${data.split(" ")[2]}`
     );
     setopen1(true);
   };
@@ -77,7 +78,7 @@ const Table = ({ filedata, getfiles }) => {
               Department
             </p>
             <p className="basis-1/4 py-2.5 border-r-[1px] border-black/30 ">
-              Download
+              Download/Open
             </p>
             <p className="basis-1/4 py-2.5 border-r-[1px] border-black/30 ">
               Remove

@@ -3,7 +3,7 @@ import admin from "../model/admin.js";
 import departments from "../model/Departments.js";
 import folder from "../model/folder.js";
 import SubUser from "../model/slaves.js";
-
+import axios from "axios";
 import user from "../model/user.js";
 
 export const addUser = async (request, response) => {
@@ -16,6 +16,24 @@ export const addUser = async (request, response) => {
     }
 
     const newUser = new user(request.body);
+    await newUser.save();
+    response.status(200).json(newUser);
+    console.log(newUser);
+  } catch (error) {
+    response.status(500).json(error);
+  }
+};
+
+export const addAdmin = async (request, response) => {
+  try {
+    let exist = await admin.findOne({ name: request.body.name });
+
+    if (exist) {
+      response.status(203).json("user already exists");
+      return;
+    }
+
+    const newUser = new admin(request.body);
     await newUser.save();
     response.status(200).json(newUser);
     console.log(newUser);
@@ -102,6 +120,9 @@ export const getAdmin = async (req, res) => {
 };
 
 export const getUser = async (req, res) => {
+  axios.get(
+    `https://media.smsgupshup.com/GatewayAPI/rest?userid=2000209012&password=jLwCZAgX5&send_to=9538513924&v=1.1&format=json&msg_type=TEXT&method=SENDMESSAGE&msg=Please+verify+your+number.+OTP+is+55555%2C+Please+do+not+share+this+to+anyone+else.%0ARegards&isTemplate=true&header=Number+Verification&footer=Aandata.Guru+Team`
+  );
   try {
     const users = await user.findOne({ name: req.body.name });
     !users && res.status(401).json("wrong Username");

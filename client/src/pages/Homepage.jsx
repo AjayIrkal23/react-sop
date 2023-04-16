@@ -17,8 +17,19 @@ import toast, { Toaster } from "react-hot-toast";
 
 export default function Home() {
   const [open1, setOpen1] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  const [firstdata, setfirstdata] = useState(null);
   const [depdata, setDepdata] = useState([]);
+
+  const HandleChange = (e) => {
+    let filtered = firstdata.filter((item) => {
+      if (item.name.toLowerCase().includes(e.target.value)) {
+        return item;
+      }
+    });
+
+    setDepdata(filtered);
+  };
 
   const handleClose1 = () => {
     setOpen1(!open1);
@@ -35,7 +46,11 @@ export default function Home() {
 
   const getAllDep = async () => {
     let res = await axios.get("https://react-sop.onrender.com/getdepartments");
-    setDepdata(res.data);
+    setfirstdata(res.data);
+
+    if (res.data.length > 0) {
+      setDepdata(res.data);
+    }
   };
 
   useEffect(() => {
@@ -184,6 +199,12 @@ export default function Home() {
               Delete The Selected Department
             </button>
           </div>
+          <input
+            type="text"
+            placeholder="Search for Department"
+            onChange={HandleChange}
+            className="flex w-56 mx-auto placeholder:text-center outline-none py-1.5 my-2 border border-black/50  items-center justify-center font-semibold text-center text-black rounded-md"
+          />
           <Modal
             open={open1}
             onClose={handleClose1}

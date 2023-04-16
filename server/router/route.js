@@ -6,6 +6,7 @@ import {
   uploadFile,
 } from "../controller/Img-controller.js";
 import {
+  addAdmin,
   addUser,
   deleteDep,
   Deleteuser,
@@ -25,6 +26,7 @@ import upload from "../upload.js";
 const route = express.Router();
 
 route.post("/add", addUser);
+route.post("/addAdmin", addAdmin);
 route.post("/subUser", subUser);
 route.post("/adddep", DepartmentAdd);
 route.post("/addfolder", folderAdd);

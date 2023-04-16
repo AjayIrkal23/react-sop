@@ -20,15 +20,26 @@ import ReactToPrint from "react-to-print";
 const OuterFolderPage = () => {
   let componentRef = useRef();
   const [filedata, setfiledata] = useState(null);
-  console.log(filedata);
+  const [firstdata, setfirstdata] = useState(null);
+
+  const HandleChange = (e) => {
+    let filtered = firstdata.filter((item) => {
+      if (item.name.toLowerCase().includes(e.target.value)) {
+        return item;
+      }
+    });
+
+    setfiledata(filtered);
+  };
 
   const getFiles = async () => {
     let res = await axios.get("https://react-sop.onrender.com/getallfolders");
     let filtered = res?.data?.filter((item) => {
-      if (item?.department == id) {
+      if (item.department.includes(id)) {
         return item;
       }
     });
+    setfirstdata(filtered);
 
     if (filtered.length > 0) {
       setfiledata(filtered);
@@ -126,6 +137,7 @@ const OuterFolderPage = () => {
         >
           Show Qr Code
         </button>
+
         {user?.name && (
           <Link to="/addSubUser">
             <p className=" flex w-56 mx-auto py-1.5 my-2 bg-green-500   justify-center font-semibold text-white rounded-md items-center gap-1 ">
@@ -134,6 +146,12 @@ const OuterFolderPage = () => {
             </p>
           </Link>
         )}
+        <input
+          type="text"
+          placeholder="Search for Folder"
+          onChange={HandleChange}
+          className="flex w-56 mx-auto placeholder:text-center outline-none py-1.5 my-2 border border-black/50  items-center justify-center font-semibold text-center text-black rounded-md"
+        />
         <div className="w-[120px] mx-auto my-12 md:w-auto md:mx-0 md:my-0">
           {" "}
           <div>

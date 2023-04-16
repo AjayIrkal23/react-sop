@@ -59,7 +59,13 @@ const FolderPage = () => {
     let res = await axios.get(`${process.env.REACT_APP_API_URL}/allfiles`);
 
     let filtered = res?.data?.filter((item) => {
-      if (item.filename.includes(id)) {
+      if (
+        item.filename.includes(
+          `${location.pathname.split("/")[1]} ${
+            location.pathname.split("/")[2]
+          }`
+        )
+      ) {
         return item;
       }
     });
