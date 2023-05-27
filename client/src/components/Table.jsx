@@ -32,9 +32,12 @@ const Table = ({ filedata, getfiles }) => {
   const { user, admin, subUser } = useContext(AccountContext);
   const HandleDelete = async (e, name) => {
     e.preventDefault();
-    const res = await axios.post("https://react-sop.onrender.com/filedelete", {
-      name,
-    });
+    const res = await axios.post(
+      `${process.env.REACT_APP_API_URL}/filedelete`,
+      {
+        name,
+      }
+    );
     toast.success("File Deleted Successfully");
     getfiles();
   };
@@ -59,7 +62,7 @@ const Table = ({ filedata, getfiles }) => {
     console.log(data);
     setName(data.split(" ")[0]);
     setUrl(
-      `https://react-sop.onrender.com/file/${data.split(" ")[0]}%20${
+      `${process.env.REACT_APP_API_URL}/file/${data.split(" ")[0]}%20${
         data.split(" ")[1]
       }%20${data.split(" ")[2]}`
     );
@@ -100,7 +103,7 @@ const Table = ({ filedata, getfiles }) => {
               </p>
               <p className="basis-1/5 py-2.5 border-r-[1px]   border-black/30 ">
                 <a
-                  href={`https://react-sop.onrender.com/file/${item.filename}`}
+                  href={`${process.env.REACT_APP_API_URL}/file/${item.filename}`}
                   target="_blank"
                 >
                   <span className="flex flex-col sm:flex-row items-center space-x-1 justify-center md:w-[120px]  w-[90%] text-white py-1 rounded-md shadow-lg hover:scale-110 transition-all duration-200 ease-in-out cursor-pointer mx-auto sm:gap-2 text-sm bg-green-500 ">

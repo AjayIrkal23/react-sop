@@ -39,13 +39,15 @@ export default function Home() {
   console.log(list);
 
   const getAllusers = async () => {
-    let res = await axios.get("https://react-sop.onrender.com/getall");
+    let res = await axios.get(`${process.env.REACT_APP_API_URL}/getall`);
     setlist(res.data);
     setOpen1(true);
   };
 
   const getAllDep = async () => {
-    let res = await axios.get("https://react-sop.onrender.com/getdepartments");
+    let res = await axios.get(
+      `${process.env.REACT_APP_API_URL}/getdepartments`
+    );
     setfirstdata(res.data);
 
     if (res.data.length > 0) {
@@ -136,7 +138,7 @@ export default function Home() {
 
   const HandleDeleteDep = async () => {
     let name = selectref?.current.value;
-    let res = await axios.post("https://react-sop.onrender.com/deletedep", {
+    let res = await axios.post(`${process.env.REACT_APP_API_URL}/deletedep`, {
       name,
     });
     getAllDep();

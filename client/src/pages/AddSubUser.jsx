@@ -19,7 +19,7 @@ const AddSubUser = () => {
 
   const getFolders = async () => {
     await axios
-      .get("https://react-sop.onrender.com/getallfolders")
+      .get(`${process.env.REACT_APP_API_URL}/getallfolders`)
       .then((res) => {
         setfolderdata(res?.data);
       });

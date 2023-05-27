@@ -33,7 +33,7 @@ const OuterFolderPage = () => {
   };
 
   const getFiles = async () => {
-    let res = await axios.get("https://react-sop.onrender.com/getallfolders");
+    let res = await axios.get(`${process.env.REACT_APP_API_URL}/getallfolders`);
     let filtered = res?.data?.filter((item) => {
       if (item.department.includes(id)) {
         return item;
@@ -95,11 +95,21 @@ const OuterFolderPage = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
-    let res = await axios.post(
-      `${process.env.REACT_APP_API_URL}/addfolder`,
-      data
-    );
+    toast.loading("Uploading");
+    if (data?.name?.includes(" ")) {
+      toast.dismiss();
+      toast.error("Folder Name cannot Contain Spaces");
+    } else {
+      if (data.name.length > 7) {
+        toast.dismiss();
+        toast.error("Folder Name  Should Be 7 or less");
+      } else {
+        toast.dismiss();
+        let res = await axios
+          .post(`${process.env.REACT_APP_API_URL}/addfolder`, data)
+          .then((res) => toast.success("Folder Added Successfully"));
+      }
+    }
 
     reset();
 
@@ -113,14 +123,6 @@ const OuterFolderPage = () => {
   const handleClose1 = () => {
     setopen1(false);
   };
-  const data = (data) => {
-    toast.promise(onSubmit(data), {
-      loading: "Loading",
-      success: "Folder Added Successfully",
-      error: "Error when Adding",
-    });
-  };
-
   return (
     <>
       <div className="z-50">
@@ -226,7 +228,10 @@ const OuterFolderPage = () => {
             <p className="px-2 my-2 text-xl font-semibold text-center capitalize">
               Enter The Following information to add a new Folder
             </p>
-            <form onSubmit={handleSubmit(data)} className="flex flex-col px-6 ">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col px-6 "
+            >
               <div className="flex flex-col mt-8 md:gap-6 md:flex-row">
                 <div className="flex flex-col mx-auto mb-4">
                   <input

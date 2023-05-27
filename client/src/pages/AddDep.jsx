@@ -15,9 +15,13 @@ const AddDep = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    let res = axios.post(`${process.env.REACT_APP_API_URL}/adddep`, data);
-    toast.success("Successfully Added!");
-    reset();
+    if (data.name.includes(" ")) {
+      toast.error("Name Cannot Contain Spaces");
+    } else {
+      let res = axios.post(`${process.env.REACT_APP_API_URL}/adddep`, data);
+      toast.success("Successfully Added!");
+      reset();
+    }
   }; // your form submit function which will invoke after successful validation
 
   return (

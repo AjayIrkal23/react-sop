@@ -9,9 +9,12 @@ const Folder = ({ name, id, deleteId, getFiles }) => {
   const { user, admin } = useContext(AccountContext);
   const HandleDelete = async (e) => {
     e.preventDefault();
-    const res = await axios.post("https://react-sop.onrender.com/filedelete", {
-      name,
-    });
+    const res = await axios.post(
+      `${process.env.REACT_APP_API_URL}/filedelete`,
+      {
+        name,
+      }
+    );
     toast.success("File Deleted Successfully");
     getFiles();
   };

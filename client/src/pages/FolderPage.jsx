@@ -161,7 +161,7 @@ const FolderPage = () => {
           Show Qr Code
         </button>
         <input
-          type="text"
+          type="number"
           placeholder="Enter Your DocNum"
           onChange={HandleChange}
           className="flex w-56 mx-auto placeholder:text-center outline-none py-1.5 my-2 border border-black/50  items-center justify-center font-semibold text-center text-black rounded-md"
@@ -274,7 +274,7 @@ const FolderPage = () => {
                 <div className="flex flex-col mx-auto mb-4">
                   {" "}
                   <input
-                    type="text"
+                    type="number"
                     {...register("docref", { required: true })}
                     placeholder="Doc Ref Num"
                     className="border-[1px] py-2  w-[250px] text-center outline-none shadow-sm rounded-md"
